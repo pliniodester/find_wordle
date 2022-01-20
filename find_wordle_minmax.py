@@ -60,7 +60,7 @@ for k in range(N_letters):
 letters.append(set())
 
 # code for optimized (heuristic) choice - NORMAL MODE
-guess = 'soare' # initial guess, otherwise it takes too long
+guess = 'rales' # initial guess is always the same
 print(1,guess)
 try_word(guess,answer,letters)
 words_left = words.copy()

@@ -60,11 +60,11 @@ for k in range(N_letters):
 letters.append(set())
 
 # code for optimized (heuristic) choice - NORMAL MODE
-guess = 'soare' # initial guess, otherwise it takes too long
+guess = 'rales' # initial guess is always the same
 print(1,guess)
 try_word(guess,answer,letters)
 words_left = words.copy()
-for k in range(2,N_guesses+1):
+for k in range(1,N_guesses+1):
     count_min = len(words)*len(words)
     for guess in words_left.copy():
         if not(check_word(guess,letters)):
@@ -82,6 +82,8 @@ for k in range(2,N_guesses+1):
                     count += 1
                     if count > count_min: # optimization
                         break
+            if count > count_min: # optimization
+                break
         if count < count_min:
             count_min = count
             best_guess = guess
@@ -94,7 +96,7 @@ for k in range(2,N_guesses+1):
         print('Congrats!')
         break
 
-# # code to check a quality of a guess
+# # code to check a quality of initial guess
 # guess = 'rathe' # audio, soare, rathe
 # if check_word(guess,letters):
 #     count = 0
