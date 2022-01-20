@@ -70,9 +70,11 @@ for k in range(2,N_guesses+1):
         if not(check_word(guess,letters)):
             words_left.remove(guess)
     print('- Candidates:',len(words_left))
+    count_minmax = len(words_left)
     for guess in words:
-        count = 0
+        count_max = 0
         for ans_aux in words_left:
+            count = 0
             letters_aux = []
             for m in range(len(letters)):
                 letters_aux.append(letters[m].copy())
@@ -80,12 +82,13 @@ for k in range(2,N_guesses+1):
             for guess_aux in words_left:
                 if check_word(guess_aux,letters_aux):
                     count += 1
-                    if count > count_min: # optimization
-                        break
-        if count < count_min:
-            count_min = count
+            if count_max < count:
+                count_max = count
+                worst_ans = ans_aux
+        if count_max < count_minmax:
+            count_minmax = count_max
             best_guess = guess
-            print('~',guess,count/len(words_left)/len(words_left))
+            print('~',guess,count_max/len(words_left))
     if len(words_left) < 3:
         best_guess = words_left.pop()
     print(k,best_guess)
