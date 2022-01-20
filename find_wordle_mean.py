@@ -1,5 +1,5 @@
 # the answer
-answer = 'point'
+answer = 'robot'
 # select the N-letters words
 N_letters = 5
 N_guesses = 6
@@ -8,7 +8,7 @@ words = set()
 # function that updates list of possible letters for a given guess
 # letters is a list of N_letters sets containing the possible letters for each
 # one of the spaces of the wordle
-# Analogous to updating the information after a guess in wordle
+# It represents updating the information after a guess in wordle
 def try_word(guess,answer,letters):
     flag = True
     for k in range(len(guess)):
@@ -22,7 +22,7 @@ def try_word(guess,answer,letters):
                 if guess[k]==answer[m]:
                     y_flag = 1
             if y_flag:
-                letters[k].discard(guess[k])
+                letters[-1].add(guess[k])
             else:
                 for m in range(len(guess)):
                     letters[m].discard(guess[k])
@@ -35,6 +35,13 @@ def try_word(guess,answer,letters):
 def check_word(word,letters):
     for k in range(len(word)):
         if not(word[k] in letters[k]):
+            return False
+    for letter in letters[-1]: # letters[-1] has the mandatory letters
+        flag = 0
+        for k in range(len(word)):
+            if word[k] == letter:
+                flag = 1
+        if flag==0:
             return False
     return True
 
@@ -49,6 +56,8 @@ letters = []
 for k in range(N_letters):
     letters.append({'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o'\
     ,'p','q','r','s','t','u','v','w','x','y','z'})
+# this set is reserved for the mandatory letters that we do not know the position
+letters.append(set())
 
 # code for optimized (heuristic) choice - NORMAL MODE
 guess = 'soare' # initial guess, otherwise it takes too long
@@ -71,14 +80,13 @@ for k in range(2,N_guesses+1):
             for guess_aux in words_left:
                 if check_word(guess_aux,letters_aux):
                     count += 1
-                    if count > count_min:
+                    if count > count_min: # optimization
                         break
         if count < count_min:
             count_min = count
             best_guess = guess
             print('~',guess,count/len(words_left)/len(words_left))
     if len(words_left) < 3:
-        print(words_left)
         best_guess = words_left.pop()
     print(k,best_guess)
     words_left.discard(best_guess)
