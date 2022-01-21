@@ -1,6 +1,6 @@
 import wordle_bib as wb
 
-# select the N-letters words
+# select the N-letters words and the maximum number of guesses
 N_letters = 5
 N_guesses = 6
 
@@ -27,7 +27,7 @@ guess = 'rales' # initial guess is always the same
 print(1,guess)
 wb.try_word(guess,answer,letters)
 words_left = words.copy()
-for k in range(1,N_guesses+1):
+for k in range(2,N_guesses+1):
     count_min = len(words)*len(words)
     for guess in words_left.copy():
         if not(wb.check_word(guess,letters)):

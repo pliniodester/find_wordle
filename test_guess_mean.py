@@ -1,6 +1,6 @@
 import wordle_bib as wb
 
-# select the N-letters words
+# select the N-letters words and the maximum number of guesses
 N_letters = 5
 N_guesses = 6
 
