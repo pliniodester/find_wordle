@@ -1,51 +1,14 @@
-# the answer
-answer = 'robot'
+import wordle_bib as wb
+
 # select the N-letters words
 N_letters = 5
 N_guesses = 6
-words = set()
 
-# function that updates list of possible letters for a given guess
-# letters is a list of N_letters sets containing the possible letters for each
-# one of the spaces of the wordle
-# It represents updating the information after a guess in wordle
-def try_word(guess,answer,letters):
-    flag = True
-    for k in range(len(guess)):
-        if guess[k]==answer[k]:
-            letters[k] = {guess[k]}
-        else:
-            flag = False
-            letters[k].discard(guess[k])
-            y_flag = False
-            for m in range(len(guess)):
-                if guess[k]==answer[m]:
-                    y_flag = 1
-            if y_flag:
-                letters[-1].add(guess[k])
-            else:
-                for m in range(len(guess)):
-                    letters[m].discard(guess[k])
-    if flag:
-        return True
-    else:
-        return False
-
-# function that checks if a word is plausible given a list of possible letters
-def check_word(word,letters):
-    for k in range(len(word)):
-        if not(word[k] in letters[k]):
-            return False
-    for letter in letters[-1]: # letters[-1] has the mandatory letters
-        flag = 0
-        for k in range(len(word)):
-            if word[k] == letter:
-                flag = 1
-        if flag==0:
-            return False
-    return True
+# the answer
+answer = 'robot'
 
 # builds the dictionary of words with N letters
+words = set()
 with open('wordle.txt','r') as f:
     lines = f.readlines()
 for word in lines:
@@ -62,12 +25,12 @@ letters.append(set())
 # code for optimized (heuristic) choice - NORMAL MODE
 guess = 'rales' # initial guess is always the same
 print(1,guess)
-try_word(guess,answer,letters)
+wb.try_word(guess,answer,letters)
 words_left = words.copy()
 for k in range(1,N_guesses+1):
     count_min = len(words)*len(words)
     for guess in words_left.copy():
-        if not(check_word(guess,letters)):
+        if not(wb.check_word(guess,letters)):
             words_left.remove(guess)
     print('- Candidates:',len(words_left))
     for guess in words:
@@ -76,9 +39,9 @@ for k in range(1,N_guesses+1):
             letters_aux = []
             for m in range(len(letters)):
                 letters_aux.append(letters[m].copy())
-            try_word(guess,ans_aux,letters_aux)
+            wb.try_word(guess,ans_aux,letters_aux)
             for guess_aux in words_left:
-                if check_word(guess_aux,letters_aux):
+                if wb.check_word(guess_aux,letters_aux):
                     count += 1
                     if count > count_min: # optimization
                         break
@@ -92,20 +55,6 @@ for k in range(1,N_guesses+1):
         best_guess = words_left.pop()
     print(k,best_guess)
     words_left.discard(best_guess)
-    if try_word(best_guess,answer,letters):
+    if wb.try_word(best_guess,answer,letters):
         print('Congrats!')
         break
-
-# # code to check a quality of initial guess
-# guess = 'rathe' # audio, soare, rathe
-# if check_word(guess,letters):
-#     count = 0
-#     for ans_aux in words:
-#         letters_aux = []
-#         for m in range(len(letters)):
-#             letters_aux.append(letters[m].copy())
-#         try_word(guess,ans_aux,letters_aux)
-#         for guess_aux in words:
-#             if check_word(guess_aux,letters_aux):
-#                 count += 1
-#     print(guess,count/len(words)/len(words))
