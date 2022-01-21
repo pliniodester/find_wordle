@@ -1,5 +1,3 @@
-# the answer
-answer = 'robot'
 # select the N-letters words
 N_letters = 5
 N_guesses = 6
@@ -59,39 +57,16 @@ for k in range(N_letters):
 # this set is reserved for the mandatory letters that we do not know the position
 letters.append(set())
 
-# code for optimized (heuristic) choice - NORMAL MODE
-guess = 'rales' # initial guess is always the same
-print(1,guess)
-try_word(guess,answer,letters)
-words_left = words.copy()
-for k in range(1,N_guesses+1):
-    count_min = len(words)*len(words)
-    for guess in words_left.copy():
-        if not(check_word(guess,letters)):
-            words_left.remove(guess)
-    print('- Candidates:',len(words_left))
-    for guess in words:
+# code to check a quality of initial guess
+for guess in {'ariot', 'irate', 'oater', 'orate', 'ratio', 'retia', 'roate', 'terai', 'tiare'}:
+    if check_word(guess,letters):
         count = 0
-        for ans_aux in words_left:
+        for ans_aux in words:
             letters_aux = []
             for m in range(len(letters)):
                 letters_aux.append(letters[m].copy())
             try_word(guess,ans_aux,letters_aux)
-            for guess_aux in words_left:
+            for guess_aux in words:
                 if check_word(guess_aux,letters_aux):
                     count += 1
-                    if count > count_min: # optimization
-                        break
-            if count > count_min: # optimization
-                break
-        if count < count_min:
-            count_min = count
-            best_guess = guess
-            print('~',guess,count/len(words_left)/len(words_left))
-    if len(words_left) < 3:
-        best_guess = words_left.pop()
-    print(k,best_guess)
-    words_left.discard(best_guess)
-    if try_word(best_guess,answer,letters):
-        print('Congrats!')
-        break
+        print(guess,count/len(words)/len(words))
