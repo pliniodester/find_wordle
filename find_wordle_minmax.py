@@ -5,7 +5,7 @@ N_letters = 5
 N_guesses = 6
 
 # the answer
-answer = 'robot'
+answer = 'prick'
 
 # builds the dictionary of words with N letters
 words = set()
@@ -17,9 +17,9 @@ for word in lines:
 
 letters = []
 for k in range(N_letters):
-    letters.append({'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o'\
-    ,'p','q','r','s','t','u','v','w','x','y','z'})
-# this set is reserved for the mandatory letters that we do not know the position
+    letters.append({'a','b','c','d','e','f','g','h','i','j','k','l','m','n',\
+    'o','p','q','r','s','t','u','v','w','x','y','z'})
+# this set is reserved for the mandatory letters we do not know the position
 letters.append(set())
 
 # code for optimized (heuristic) choice - NORMAL MODE
@@ -45,9 +45,13 @@ for k in range(2,N_guesses+1):
             for guess_aux in words_left:
                 if wb.check_word(guess_aux,letters_aux):
                     count += 1
+                if count > count_minmax: # optimization
+                    break
             if count_max < count:
                 count_max = count
                 worst_ans = ans_aux
+            if count > count_minmax: # optimization
+                break
         if count_max < count_minmax:
             count_minmax = count_max
             best_guess = guess

@@ -5,7 +5,7 @@ N_letters = 5
 N_guesses = 6
 
 # the answer
-answer = 'robot'
+answer = 'prick'
 
 # builds the dictionary of words with N letters
 words = set()
@@ -17,9 +17,9 @@ for word in lines:
 
 letters = []
 for k in range(N_letters):
-    letters.append({'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o'\
-    ,'p','q','r','s','t','u','v','w','x','y','z'})
-# this set is reserved for the mandatory letters that we do not know the position
+    letters.append({'a','b','c','d','e','f','g','h','i','j','k','l','m','n',\
+    'o','p','q','r','s','t','u','v','w','x','y','z'})
+# this set is reserved for the mandatory letters we do not know the position
 letters.append(set())
 
 # code for optimized (heuristic) choice - NORMAL MODE
