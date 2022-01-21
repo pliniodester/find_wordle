@@ -23,9 +23,9 @@ for k in range(N_letters):
 letters.append(set())
 
 # code for optimized (heuristic) choice - NORMAL MODE
-guess = 'rales' # initial guess is always the same
-print(1,guess)
-wb.try_word(guess,answer,letters)
+# guess = 'rales' # initial guess is always the same
+# print(1,guess)
+# wb.try_word(guess,answer,letters)
 words_left = words.copy()
 for k in range(2,N_guesses+1):
     count_min = len(words)*len(words)

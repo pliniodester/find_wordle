@@ -10,7 +10,11 @@ In find_wordle_minmax.py we try a minmax approach, i.e., we guess a word for whi
 **Insights:**
 
 The following words, if used as initial guesses, invalidate the majority of the words.
-The mean (expected) and standard deviation of the proportion of remaining words are
 
-- RALES => 2.25% ± 1.82% remains
-- SOARE => 2.34% ± 1.79% remains
+- RALES: μ = 0.02251, σ = 0.01817, max = 0.06407,
+- SERAI: μ = 0.02429, σ = 0.01739, max = 0.05374,
+- SOARE: μ = 0.02342, σ = 0.01786, max = 0.05929,
+
+where the object being measured is the proportion of words that remained.
+
+As usual, μ is the mean, σ is the standard deviation, and max is the worst case.

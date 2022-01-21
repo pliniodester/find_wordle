@@ -24,7 +24,7 @@ for k in range(N_letters):
 letters.append(set())
 
 # code to check a quality of initial guess
-for guess in {'rales'}:
+for guess in {'audio'}: # 'rales', 'soare', 'rathe', 'serai'
     remaining = [];
     for ans_aux in words:
         count = 0
