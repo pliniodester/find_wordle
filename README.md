@@ -10,7 +10,7 @@ In find_wordle_minmax.py we try a minmax approach, i.e., we guess a word for whi
 **Insights:**
 
 The following words, if used as initial guesses, invalidate the majority of the words.
-The mean (expected) proportion of remaining words follows.
+The mean (expected) and standard deviation of the proportion of remaining words are
 
-- RALES => 2.25% remains
-- SOARE => 2.34% remains
+- RALES => 2.25% ± 1.82% remains
+- SOARE => 2.34% ± 1.79% remains

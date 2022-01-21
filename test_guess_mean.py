@@ -1,4 +1,5 @@
 import wordle_bib as wb
+import numpy as np
 
 # select the N-letters words and the maximum number of guesses
 N_letters = 5
@@ -23,10 +24,11 @@ for k in range(N_letters):
 letters.append(set())
 
 # code to check a quality of initial guess
-for guess in {'ariot', 'irate', 'oater', 'orate', 'ratio', 'retia', 'roate', 'terai', 'tiare'}:
+for guess in {'soare'}:
     if wb.check_word(guess,letters):
-        count = 0
+        remaining = [];
         for ans_aux in words:
+            count = 0
             letters_aux = []
             for m in range(len(letters)):
                 letters_aux.append(letters[m].copy())
@@ -34,4 +36,7 @@ for guess in {'ariot', 'irate', 'oater', 'orate', 'ratio', 'retia', 'roate', 'te
             for guess_aux in words:
                 if wb.check_word(guess_aux,letters_aux):
                     count += 1
-        print(guess,count/len(words)/len(words))
+            remaining.append(count)
+        print(guess,\
+        "{:.5f}".format(np.mean(remaining)/len(words)),\
+        "({:.5f})".format(np.std(remaining)/len(words)))
