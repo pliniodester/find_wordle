@@ -5,9 +5,6 @@ import numpy as np
 N_letters = 5
 N_guesses = 6
 
-# the answer
-answer = 'robot'
-
 # builds the dictionary of words with N letters
 words = set()
 with open('wordle.txt','r') as f:
@@ -24,7 +21,7 @@ for k in range(N_letters):
 letters.append(set())
 
 # code to check a quality of initial guess
-for guess in {'audio'}: # 'rales', 'soare', 'rathe', 'serai'
+for guess in {'adieu', 'aesir', 'raise'}: # 'rales', 'soare', 'rathe', 'serai'
     remaining = [];
     for ans_aux in words:
         count = 0
